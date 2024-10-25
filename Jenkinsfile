@@ -43,9 +43,9 @@ pipeline {
     }
 
     post {
-        always {
-            cleanWs() // Clean workspace
-        }
+        // always {
+        //     cleanWs() // Clean workspace
+        // }
         success {
             echo 'Terraform script executed successfully!'
         }
