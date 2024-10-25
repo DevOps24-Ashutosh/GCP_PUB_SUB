@@ -6,8 +6,8 @@ provider "google" {
 }
 
 # Create a Pub/Sub schema
-resource "google_pubsub_schema" "message_schema_1" {
-  name = "message-schema-1"
+resource "google_pubsub_schema" "message_schema_2" {
+  name = "message-schema-2"
   type = "AVRO"
   definition = jsonencode({
     type = "record"
@@ -26,25 +26,25 @@ resource "google_pubsub_schema" "message_schema_1" {
 }
 
 # Create a Pub/Sub topic with the schema
-resource "google_pubsub_topic" "example_topic_1" {
-  name = "example-topic-1"
+resource "google_pubsub_topic" "example_topic_2" {
+  name = "example-topic-2"
 
   schema_settings {
-    schema   = google_pubsub_schema.message_schema_1.id
+    schema   = google_pubsub_schema.message_schema_2.id
     encoding = "JSON"
   }
 }
 
 # Create a BigQuery dataset
-resource "google_bigquery_dataset" "example_dataset_1" {
-  dataset_id = "example_dataset_1"
+resource "google_bigquery_dataset" "example_dataset_2" {
+  dataset_id = "example_dataset_2"
   location   = "US"
 }
 
 # Create a BigQuery table with required metadata columns
-resource "google_bigquery_table" "example_table_1" {
-  dataset_id          = google_bigquery_dataset.example_dataset_1.dataset_id
-  table_id            = "example_table_1"
+resource "google_bigquery_table" "example_table_2" {
+  dataset_id          = google_bigquery_dataset.example_dataset_2.dataset_id
+  table_id            = "example_table_2"
   deletion_protection = false
 
   schema = <<EOF
@@ -88,12 +88,12 @@ EOF
 }
 
 # Create a Pub/Sub subscription to BigQuery
-resource "google_pubsub_subscription" "bigquery_subscription_1" {
-  name  = "example-bigquery-subscription-1"
-  topic = google_pubsub_topic.example_topic_1.name
+resource "google_pubsub_subscription" "bigquery_subscription_2" {
+  name  = "example-bigquery-subscription-2"
+  topic = google_pubsub_topic.example_topic_2.name
 
   bigquery_config {
-    table            = "${google_bigquery_table.example_table_1.project}.${google_bigquery_table.example_table_1.dataset_id}.${google_bigquery_table.example_table_1.table_id}"
+    table            = "${google_bigquery_table.example_table_2.project}.${google_bigquery_table.example_table_2.dataset_id}.${google_bigquery_table.example_table_2.table_id}"
     use_topic_schema = true
     write_metadata   = true
   }
