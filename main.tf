@@ -2,7 +2,7 @@
 provider "google" {
   project = "terraform-pub-sub"  # Replace with your project ID
   region  = "us-central1"
-  credentials = "/home/ubuntu/gcp.json"
+  # credentials = "/home/ubuntu/gcp.json"
 }
 
 # Create a Pub/Sub schema
